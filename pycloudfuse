@@ -49,7 +49,7 @@ import stat
 import os
 import errno
 import logging
-from ftpcloudfs.fs import CloudFilesFS
+from ftpcloudfs.fs import ObjectStorageFS
 from functools import wraps
 
 fuse.fuse_python_api = (0, 2)
@@ -175,7 +175,7 @@ class CloudFuse(fuse.Fuse):
         self.authurl = authurl
         self.use_snet = use_snet
         self.read_config()
-        self.fs = CloudFilesFS(self.username, self.api_key, servicenet=self.use_snet, authurl=self.authurl)
+        self.fs = ObjectStorageFS(self.username, self.api_key, servicenet=self.use_snet, authurl=self.authurl)
         self.open_files = {}    # count of open files
         self.file_class.fs = self.fs # FIXME untidy and not re-entrant!
         self.file_class.parent = self # FIXME
